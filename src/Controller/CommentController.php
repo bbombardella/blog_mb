@@ -16,8 +16,17 @@ class CommentController extends AbstractController
      */
     public function index(): Response
     {
+        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
+        $comments = $commentRepository->findAll();
+
+        if (!$comments) {
+            throw $this->createNotFoundException(
+                "Pas de commentaires disponibles !"
+            );
+        }
+
         return $this->render('comment/index.html.twig', [
-            'controller_name' => 'CommentController',
+            'comments' => $comments,
         ]);
     }
 
@@ -34,6 +43,23 @@ class CommentController extends AbstractController
         return $this->render('comment/show.html.twig', [
             'post' => $post
         ]);
+    }
+
+    public function valid(int $id): Response {
+        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
+        $comment = $commentRepository->find($id);
+
+        if (!$comment) {
+            throw $this->createNotFoundException(
+                "Pas de Comment trouvé avec l'id \"${id}\""
+            );
+        }
+
+        $comment->valid = !$comment->valid;
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($comment);
+        $entityManager->flush();
     }
 
     public function create(Request $request): Response {
@@ -55,11 +81,18 @@ class CommentController extends AbstractController
         ]);
     }
 
-    public function edit(): Response {
+    public function remove(int $id): Response {
+        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
+        $comment = $commentRepository->find($id);
 
-    }
+        if (!$comment) {
+            throw $this->createNotFoundException(
+                "Pas de Comment trouvé avec l'id \"${id}\""
+            );
+        }
 
-    public function remove(): Response {
-
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($comment);
+        $entityManager->flush();
     }
 }
