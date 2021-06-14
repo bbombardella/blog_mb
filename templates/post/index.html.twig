@@ -5,20 +5,10 @@
 
 {% block body %}
 	<div>
-		{% for comment in comments %}
-			<div>
-				<p>
-					<strong>{{ comment.id }}</strong>
-					{{ comment.content }}</p>
-				{% if comment.valid %}
-					<a href="">Invalider</a>
-				{% else %}
-					<a href="">Valider</a>
-				{% endif %}
-				<a href="">Supprimer</a>
-			</div>
+		{% for post in posts %}
+			<p>{{ post.title }}</p>
 		{% else %}
-			<p>Désolé, il n'y a aucun commentaire de disponibles.</p>
+			<p>Désolé, il n'y a aucun post de disponibles.</p>
 		{% endfor %}
 	</div>
 {% endblock %}

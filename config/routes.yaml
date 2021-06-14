@@ -29,3 +29,7 @@ comments_remove:
 comments_show:
   path: /admin/comments/{id}
   controller: App\Controller\CommentController::show
+
+posts:
+  path: /posts/{page}
+  controller: App\Controller\PostController::index
