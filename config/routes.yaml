@@ -14,9 +14,17 @@ comments:
   path: /admin/comments
   controller: App\Controller\CommentController::index
 
+comments_create:
+  path: /admin/comments/create
+  controller: App\Controller\CommentController::create
+
 comments_valid:
   path: /admin/comments/{id}/valid
   controller: App\Controller\CommentController::valid
+
+comments_remove:
+  path: /admin/comments/{id}/remove
+  controller: App\Conroller\CommentController::remove
 
 comments_show:
   path: /admin/comments/{id}
