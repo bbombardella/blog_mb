@@ -1,3 +1,23 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+home_user:
+  path: /
+  controller: App\Controller\HomeController::user
+
+home_admin:
+  path: /admin
+  controller: App\Controller\HomeController::admin
+
+comments:
+  path: /admin/comments
+  controller: App\Controller\CommentController::index
+
+comments_valid:
+  path: /admin/comments/{id}/valid
+  controller: App\Controller\CommentController::valid
+
+comments_show:
+  path: /admin/comments/{id}
+  controller: App\Controller\CommentController::show
