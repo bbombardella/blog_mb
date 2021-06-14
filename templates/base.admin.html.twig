@@ -21,17 +21,16 @@
 			{#Création du header#}
 			<ul id="navigation">
 				<li>
-					<a href="">Nom du blog
-					</a>
+					<a href="{{ path("home_user") }}">Nom du blog</a>
 				</li>
 				<li>
 					<a href="">Gérer les posts</a>
 				</li>
 				<li>
-					<a href="{{ 'category/show.html.twig' }}">Gérer les catégorie</a>
+					<a href="">Gérer les catégorie</a>
 				</li>
 				<li>
-					<a href="{{ 'comment/show.html.twig' }}">Gérer les commentaires</a>
+					<a href="{{ path("comments") }}">Gérer les commentaires</a>
 				</li>
 			</ul>
 		</header>
