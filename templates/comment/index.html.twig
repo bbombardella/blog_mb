@@ -1,20 +1,53 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.admin.html.twig' %}
 
-{% block title %}Hello CommentController!{% endblock %}
+{% block title %}Liste des commentaires
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="example-wrapper">
+		<h1>Voici la liste des commentaires postés :</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/blog/src/Controller/CommentController.php'|file_link(0) }}">src/Controller/CommentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/blog/templates/comment/index.html.twig'|file_link(0) }}">templates/comment/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Utilisateur</th>
+						<th scope="col">Contenu</th>
+                        <th scope="col">Validation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for comment in comments %}
+						<tr>
+							<th scope="row">{{comment.id}}</th>
+							<td>{{comment.username}}</td>
+							<td>"{{comment.content}}"</td>
+                            <td>
+                                {% if comment.valid %}
+                                    <button type="button" class="btn btn-danger">Dévalider</button>
+                                {% else %}
+                                    <button type="button" class="btn btn-primary">Valider</button>
+                                {% endif %}
+                            </td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+
+		</div>
+	{% endblock %}
