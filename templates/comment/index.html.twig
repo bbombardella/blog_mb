@@ -28,6 +28,7 @@
 						<th scope="col">Utilisateur</th>
 						<th scope="col">Contenu</th>
                         <th scope="col">Validation</th>
+                        <th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,10 +39,13 @@
 							<td>"{{comment.content}}"</td>
                             <td>
                                 {% if comment.valid %}
-                                    <button type="button" class="btn btn-danger">Dévalider</button>
+                                    <button type="button" class="btn btn-outline-danger">Dévalider</button>
                                 {% else %}
-                                    <button type="button" class="btn btn-primary">Valider</button>
+                                    <button type="button" class="btn btn-outline-primary">Valider</button>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger">Supprimer</button>
                             </td>
 						</tr>
 					{% endfor %}
