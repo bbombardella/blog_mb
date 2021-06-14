@@ -1,9 +1,3 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Liste des commentaires
-{% endblock %}
-
-{% block body %}
 	<div>
 		{% for post in posts %}
 			<p>{{ post.title }}</p>
@@ -11,4 +5,4 @@
 			<p>Désolé, il n'y a aucun post de disponibles.</p>
 		{% endfor %}
 	</div>
-{% endblock %}
+

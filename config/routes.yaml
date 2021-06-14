@@ -31,5 +31,5 @@ comments_show:
   controller: App\Controller\CommentController::show
 
 posts:
-  path: /posts/{page}
+  path: admin/posts/{page}
   controller: App\Controller\PostController::index
