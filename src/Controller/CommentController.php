@@ -17,7 +17,7 @@ class CommentController extends AbstractController
     public function index(): Response
     {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $commentRepository->findAll();
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
 
         if (!$comments) {
             throw $this->createNotFoundException(
