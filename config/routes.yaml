@@ -30,6 +30,12 @@ comments_show:
   path: /admin/comments/{id}
   controller: App\Controller\CommentController::show
 
+posts_show:
+  path: admin/posts/{id}
+  controller: App\Controller\PostController::show
+
 posts:
   path: admin/posts/{page}
   controller: App\Controller\PostController::index
+
+

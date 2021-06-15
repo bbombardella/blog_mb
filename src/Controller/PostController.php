@@ -20,4 +20,22 @@ class PostController extends AbstractController
             'posts' => $posts,
         ]);
     }
+
+
+    /**
+    * @Route("/post", name="post/show")
+    */
+    public function show(int $id): Response
+    {
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
+        $posts = $postRepository->find($id);
+
+        if($posts) {
+            return $this->render('post/show.html.twig', [
+                'posts' => $posts,
+            ]);
+        } else {
+            abort(404, 'Post non trouvé !');
+        }
+    }
 }
