@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\Comment;
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +21,13 @@ class HomeController extends AbstractController
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $categoryRepository->findAll();
 
         return $this->render('home/user.html.twig', [
             'posts' => $posts,
             'comments' => $comments,
+            'categories' => $category,
         ]);
 
     }
