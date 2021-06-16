@@ -31,15 +31,16 @@
 				</thead>
 				<tbody>
 					{% for comment in comments %}
+					{{dump(comment)}}
 						<tr>
 							<th scope="row">{{comment.id}}</th>
 							<td>{{comment.username}}</td>
 							<td>"{{comment.content}}"</td>
                             <td>
                                 {% if comment.valid %}
-                                    <button type="button" class="btn btn-outline-danger">Dévalider</button>
+                                    <a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
                                 {% else %}
-                                    <button type="button" class="btn btn-outline-primary">Valider</button>
+                                    <a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-primary">Valider</a>
                                 {% endif %}
                             </td>
                             <td>

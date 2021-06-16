@@ -41,25 +41,33 @@ class CommentController extends AbstractController
         }
 
         return $this->render('comment/show.html.twig', [
-            'post' => $post
+            'comments' => $comment,
         ]);
     }
 
     public function valid(int $id): Response {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+
 
         if (!$comment) {
             throw $this->createNotFoundException(
-                "Pas de Comment trouvé avec l'id \"${id}\""
+                "Pas de commentaire trouvé avec l'id \"${id}\""
             );
         }
 
-        $comment->valid = !$comment->valid;
+        #$comment->valid = !$comment->valid;
+
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
+
+        return $this->render('comment/index.html.twig', [
+            'comments' => $comment , #s
+        ]);
+
     }
 
     public function create(Request $request): Response {
