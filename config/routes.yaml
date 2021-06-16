@@ -31,11 +31,15 @@ comments_show:
   controller: App\Controller\CommentController::show
 
 posts_show:
-  path: admin/posts/{id}
+  path: admin/posts/view/{id}
   controller: App\Controller\PostController::show
 
 posts:
   path: admin/posts/{page}
   controller: App\Controller\PostController::index
+
+catégories:
+  path: /admin/catégory
+  controller: App\Controller\CategoryController::index
 
 

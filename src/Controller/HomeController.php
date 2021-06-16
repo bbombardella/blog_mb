@@ -36,6 +36,18 @@ class HomeController extends AbstractController
     * @Route("/admin", name="home_admin")
     */
     public function admin(): Response {
-        return $this->render('home/admin.html.twig');
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+
+        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $categoryRepository->findAll();
+
+        return $this->render('home/admin.html.twig', [
+            'posts' => $posts,
+            'comments' => $comments,
+            'categories' => $category,
+        ]);
     }
 }

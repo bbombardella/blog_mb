@@ -1,6 +1,11 @@
 {% extends 'base.admin.html.twig' %}
 
-{% block title %}Admin!
+{% block title %}Page administrateur
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+	<div class="d-flex">
+		{% include 'home/sidebar.html.twig' %}
+		{% include 'home/post.html.twig' %}
+	</div>
+{% endblock %}
