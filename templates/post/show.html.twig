@@ -29,24 +29,38 @@
 				</p>
 				<div class="d-flex justify-content-around">
 					<p class="text-black-50">
-						Créé le : {{posts.createdAt|date("m/d/Y G:i")}}
+						Créé le :
+						{{posts.createdAt|date("m/d/Y G:i")}}
 					</p>
 					<p class="text-black-50">
-						Modifié le : {{posts.updatedAt|date("m/d/Y G:i")}}
+						Modifié le :
+						{{posts.updatedAt|date("m/d/Y G:i")}}
 					</p>
 				</div>
 				<div>
-					<span class="badge bg-secondary text-white">Catégories</span>
+					<span class="badge badge-secondary">Catégories</span>
+					{% for category in posts.categories %}
+						<span class="badge badge-info">{{ category.name }}</span>
+					{% endfor %}
 				</div>
 				<div class="mt-3 border-top">
 					<p class="mt-1">Commentaires</p>
 					<div class="border-bottom">
-						<p class="text-justify ml-4 mr-4">
-							NOM USER : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur finibus elit sit amet
-						</p>
-						<p class="text-black-50 ml-4 mr-4">
-							Commentaire posté le : DATE
-						</p>
+						{% for comment in posts.comments %}
+							<p class="text-justify ml-4 mr-4">
+								<strong>
+									<u>{{ comment.username }}
+										:</u>
+								</strong>
+								{{ comment.content }}
+							</p>
+							<p class="text-black-50 ml-4 mr-4">
+								Commentaire posté le :
+								{{ comment.createdAt|date("m/d/Y G:i") }}
+							</p>
+						{% else %}
+							<p>Il n'y a aucun commentaire pour ce post</p>
+						{% endfor %}
 					</div>
 				</div>
 			</div>
