@@ -17,10 +17,11 @@ class HomeController extends AbstractController
     */
     public function user(): Response {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
+
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
         $category = $categoryRepository->findAll();
 
@@ -37,10 +38,11 @@ class HomeController extends AbstractController
     */
     public function admin(): Response {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
+        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
+        
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
         $category = $categoryRepository->findAll();
 

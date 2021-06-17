@@ -1,48 +1,47 @@
 <style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	.example-wrapper {
+		margin: 1em auto;
+		max-width: 800px;
+		width: 95%;
+		font: 18px / 1.5 sans-serif;
+	}
+	.example-wrapper code {
+		background: #F5F5F5;
+		padding: 2px 6px;
+	}
+</style>
 
-	<div class="example-wrapper mt-3">
-		<h1>Les cinqs derniers posts</h1>
+<div class="example-wrapper mt-3">
+	<h1>Les cinqs derniers posts</h1>
 
 
-		<table class="table mt-5">
-			<thead>
+	<table class="table mt-5">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Titre</th>
+				<th scope="col">Description</th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for post in posts %}
 				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Titre</th>
-					<th scope="col">Description</th>
-					<th scope="col"></th>
-                    <th scope="col"></th>
+					<th scope="row">{{post.id}}</th>
+					<td>{{post.title}}</td>
+					<td>{{post.description}}</td>
+					<td>
+						<a href="{{ path('posts_show',{'id': post.id}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
+					</td>
+					<td>
+						<button type="button" class="btn btn-outline-success">Voir les commentaires</button>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				{% for post in posts|slice(0, 5) %} <!--Ici le slice nous permet de dire qu'on rentre dans la boucle que 5fois-->
-					<tr>
-						<th scope="row">{{post.id}}</th>
-						<td>{{post.title}}</td>
-						<td>{{post.description}}</td>
-						<td>
-							<a href="{{ path('posts_show',{'id': post.id}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
-						</td>
-                        <td>
-							<button type="button" class="btn btn-outline-success">Voir les commentaires</button>
-						</td>
-					</tr>
-				{% else %}
-					<p>Désolé, il n'y a aucun post de disponibles.</p>
-				{% endfor %}
-			</tbody>
-		</table>
+			{% else %}
+				<p>Désolé, il n'y a aucun post de disponibles.</p>
+			{% endfor %}
+		</tbody>
+	</table>
 
-	</div>
-
+</div>
