@@ -19,7 +19,7 @@ class PostController extends AbstractController
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 10, ($page - 1) * 10);
-        return $this->render('post/admin.html.twig', [
+        return $this->render('post/index.html.twig', [
             'posts' => $posts,
         ]);
     }
