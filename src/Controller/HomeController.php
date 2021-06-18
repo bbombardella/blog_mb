@@ -13,14 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-    * @Route("/", name="home_user")
-    */
-    public function user(): Response {
+     * @Route("/", name="home_user")
+     */
+    public function user(): Response
+    {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
+        $comments = $commentRepository->findBy(array("valid" => 1), array('createdAt' => 'DESC'), 5);
 
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
         $category = $categoryRepository->findAll();
@@ -30,19 +31,19 @@ class HomeController extends AbstractController
             'comments' => $comments,
             'categories' => $category,
         ]);
-
     }
 
     /**
-    * @Route("/admin", name="home_admin")
-    */
-    public function admin(): Response {
+     * @Route("/admin", name="home_admin")
+     */
+    public function admin(): Response
+    {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
-        
+
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
         $category = $categoryRepository->findAll();
 

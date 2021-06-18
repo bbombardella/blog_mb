@@ -19,18 +19,13 @@ class CommentController extends AbstractController
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
 
-        if (!$comments) {
-            throw $this->createNotFoundException(
-                "Pas de commentaires disponibles !"
-            );
-        }
-
         return $this->render('comment/index.html.twig', [
             'comments' => $comments,
         ]);
     }
 
-    public function show(int $id): Response {
+    public function show(int $id): Response
+    {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
 
@@ -45,7 +40,8 @@ class CommentController extends AbstractController
         ]);
     }
 
-    public function valid(int $id): Response {
+    public function valid(int $id): Response
+    {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
         $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
@@ -65,18 +61,18 @@ class CommentController extends AbstractController
         $entityManager->flush();
 
         return $this->render('comment/index.html.twig', [
-            'comments' => $comment , #s
+            'comments' => $comment, #s
         ]);
-
     }
 
-    public function create(Request $request): Response {
+    public function create(Request $request): Response
+    {
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest();
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -89,7 +85,8 @@ class CommentController extends AbstractController
         ]);
     }
 
-    public function remove(int $id): Response {
+    public function remove(int $id): Response
+    {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
 

@@ -32,7 +32,7 @@
 					<td>{{post.title}}</td>
 					<td>{{post.description}}</td>
 					<td>
-						<a href="{{ path('posts_show',{'id': post.id}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
+						<a href="{{ path('posts_show',{'slug': post.slug}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
 					</td>
 					<td>
 						<button type="button" class="btn btn-outline-success">Voir les commentaires</button>

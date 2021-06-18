@@ -107,12 +107,13 @@
 							<ul>
 
 								{% for category in categories %}
-									<li>
-										{{category.name}}
-										-
-										{{ category.posts|length }}
-									</li>
-
+									{% if category.posts|length > 0 %}
+										<li>
+											{{category.name}}
+											-
+											{{ category.posts|length }}
+										</li>
+									{% endif %}
 								{% else %}
 									<p>Désolé, il n'y a aucunes catégories de disponibles.</p>
 								{% endfor %}

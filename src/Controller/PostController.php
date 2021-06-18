@@ -26,20 +26,22 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/admin/posts/show/{id}", name="post_show")
+     * @Route("posts/{slug}", name="post_show")
      */
-    public function show(int $id): Response
+    public function show(string $slug): Response
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
-        $posts = $postRepository->find($id);
+        $post = $postRepository->findOneBy([
+            'slug' => $slug
+        ]);
 
-        if ($posts) {
-            return $this->render('post/show.html.twig', [
-                'posts' => $posts,
-            ]);
-        } else {
-            die(404);
+        if (!$post || $post->getPublishedAt() > (new \DateTime('now'))) {
+            return $this->redirectToRoute('home_user');
         }
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post,
+        ]);
     }
 
     public function create(Request $request)

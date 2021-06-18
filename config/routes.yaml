@@ -15,7 +15,7 @@ comments:
   controller: App\Controller\CommentController::index
 
 comments_create:
-  path: /admin/comments/create
+  path: /comments/create
   controller: App\Controller\CommentController::create
 
 comments_valid:
@@ -43,7 +43,7 @@ posts_delete:
   controller: App\Controller\PostController::delete
 
 posts_show:
-  path: /posts/show/{id}
+  path: /posts/{slug}
   controller: App\Controller\PostController::show
 #  requirements:
 #    page: '\d+'

@@ -19,37 +19,38 @@
 
 	<div class="example-wrapper mt-3">
 		<h1>Voici la liste des commentaires postés :</h1>
-			<table class="table mt-5">
-				<thead>
+		<table class="table mt-5">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Utilisateur</th>
+					<th scope="col">Contenu</th>
+					<th scope="col">Validation</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for comment in comments %}
 					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Utilisateur</th>
-						<th scope="col">Contenu</th>
-                        <th scope="col">Validation</th>
-                        <th scope="col"></th>
+						<th scope="row">{{comment.id}}</th>
+						<td>{{comment.username}}</td>
+						<td>"{{comment.content}}"</td>
+						<td>
+							{% if comment.valid %}
+								<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
+							{% else %}
+								<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-primary">Valider</a>
+							{% endif %}
+						</td>
+						<td>
+							<button type="button" class="btn btn-outline-danger">Supprimer</button>
+						</td>
 					</tr>
-				</thead>
-				<tbody>
-					{% for comment in comments %}
-					{{dump(comment)}}
-						<tr>
-							<th scope="row">{{comment.id}}</th>
-							<td>{{comment.username}}</td>
-							<td>"{{comment.content}}"</td>
-                            <td>
-                                {% if comment.valid %}
-                                    <a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
-                                {% else %}
-                                    <a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-primary">Valider</a>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger">Supprimer</button>
-                            </td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+				{% else %}
+					<p>Désolé, il n'y a aucun commentaire de disponible</p>
+				{% endfor %}
+			</tbody>
+		</table>
 
-		</div>
+	</div>
 {% endblock %}
