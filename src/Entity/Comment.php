@@ -43,6 +43,12 @@ class Comment
      */
     private $post;
 
+    public function __construct()
+    {
+        $this->valid = false;
+        $this->createdAt = new \DateTime('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;

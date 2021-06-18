@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,6 @@ class CommentController extends AbstractController
     {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
-        $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
 
 
         if (!$comment) {
@@ -53,35 +53,47 @@ class CommentController extends AbstractController
             );
         }
 
-        #$comment->valid = !$comment->valid;
+        $comment->setValid(!$comment->getValid());
 
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
 
-        return $this->render('comment/index.html.twig', [
-            'comments' => $comment, #s
-        ]);
+        return $this->redirectToRoute("comments");
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request, string $slug): Response
     {
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
+        $post = $postRepository->findOneBy([
+            'slug' => $slug
+        ]);
+
+        if (!$post || $post->getPublishedAt() > (new \DateTime('now'))) {
+            return $this->redirectToRoute('home_user');
+        }
+
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
-        $form->handleRequest();
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment = $form->getData();
+            $comment->setPost($post);
+            $commentManager = $this->getDoctrine()->getManager();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            $commentManager->persist($comment);
+            $commentManager->flush();
+
+            return $this->redirectToRoute("posts_show", [
+                'slug' => $slug
+            ]);
         }
 
-        return $this->render('comment/create.html.twig', [
-            'form' => $form->createView()
+        return $this->render('comment/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => "Rédaction du commentaire sur le post \"{$post->getTitle()}\""
         ]);
     }
 

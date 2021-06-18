@@ -15,7 +15,7 @@ comments:
   controller: App\Controller\CommentController::index
 
 comments_create:
-  path: /comments/create
+  path: /posts/{slug}/comments/create
   controller: App\Controller\CommentController::create
 
 comments_valid:

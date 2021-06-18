@@ -46,7 +46,7 @@
 				<div class="mt-3 border-top">
 					<p class="mt-1">Commentaires</p>
 					<div class="border-bottom">
-						{% for comment in post.comments %}
+						{% for comment in post.comments|filter(comment => comment.valid==1) %}
 							<p class="text-justify ml-4 mr-4">
 								<strong>
 									<u>{{ comment.username }}
@@ -61,6 +61,9 @@
 						{% else %}
 							<p>Il n'y a aucun commentaire pour ce post</p>
 						{% endfor %}
+					</div>
+					<div class="border-bottom py-2">
+						<a href="{{ path("comments_create", {'slug': post.slug}) }}" type="button" class="btn btn-info">Ajouter un commentaire</a>
 					</div>
 				</div>
 			</div>
