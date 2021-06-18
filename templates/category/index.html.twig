@@ -36,10 +36,10 @@
 						<th scope="row">{{category.id}}</th>
 						<td>{{category.name}}</td>
 						<td>
-							<button type="button" class="btn btn-outline-success">Editer</button>
+							<a href="{{ path("categories_edit", {'id': category.id}) }}" type="button" class="btn btn-outline-success">Editer</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-outline-danger">Supprimer</button>
+							<a href="{{ path("categories_delete", {'id': category.id}) }}" type="button" class="btn btn-outline-danger">Supprimer</a>
 						</td>
 					</tr>
 				{% endfor %}
@@ -48,6 +48,6 @@
 
 	</div>
 	<div class="d-flex justify-content-center">
-		<button type="button" class="btn btn-outline-info">Créer une catégorie</button>
+		<a href="{{ path("categories_create") }}" type="button" class="btn btn-info">Créer une catégorie</a>
 	</div>
 {% endblock %}

@@ -17,83 +17,77 @@ class CategoryController extends AbstractController
     public function index(): Response
     {
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-        $category = $categoryRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
         return $this->render('category/index.html.twig', [
-            'categories' => $category,
+            'categories' => $categories,
         ]);
     }
 
-    public function show(int $id): Response {
-        $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-        $category = $categoryRepository->find($id);
-
-        if (!$category) {
-            throw $this->createNotFoundException(
-                "Aucune catégorie ne correspond à l'id \"${id}\""
-            );
-        }
-
-        return $this->render('category/show.html.twig', [
-            'post' => $post
-        ]);
-    }
-
-    public function create(Request $request): Response {
+    public function create(Request $request): Response
+    {
         $category = new Category();
 
         $form = $this->createForm(CategoryFormType::class, $category);
-        $form->handleRequest();
+        $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
+            $categoryManager = $this->getDoctrine()->getManager();
+            $categoryManager->persist($category);
+            $categoryManager->flush();
+
+            return $this->redirectToRoute("categories");
         }
 
-        return $this->render('category/create.html.twig', [
-            'form' => $form->createView()
+        return $this->render('category/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => "Création d'une catégorie"
         ]);
     }
 
-    public function edit($id, Request $request): Response {
+    public function edit($id, Request $request): Response
+    {
         $categoryRepository = $this->getDoctrine()->getRepository(Category::class);
         $category = $categoryRepository->find($id);
 
         if (!$category) {
-            throw $this->createNotFoundException(
-                "Aucune catégorie ne correspond à l'id \"${id}\""
-            );
+            return $this->redirectToRoute("categories");
         }
 
-        if($form->isSubmitted() && $form->isValid()) {
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
+
+            return $this->redirectToRoute("categories");
         }
 
-        return $this->render('category/edit.html.twig', [
-            'form' => $form->editView()
+        return $this->render('category/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => "Modification d'une catégorie"
         ]);
     }
 
-    public function remove($id): Response {
+    public function delete($id): Response
+    {
         $entityManager = $this->getDoctrine()->getManager();
         $categoryRepository = $entityManager->getRepository(Category::class);
 
         $category = $categoryRepository->find($id);
 
-        if(!$category) {
-            throw $this->createNotFoundException(
-                "Pas de Post trouvé avec l'id ".$id
-            );
+        if (!$category) {
+            return $this->redirectToRoute("categories");
         }
 
         $entityManager->remove($category);
         $entityManager->flush();
 
+        return $this->redirectToRoute("categories");
     }
 }

@@ -31,25 +31,39 @@ comments_show:
   controller: App\Controller\CommentController::show
 
 posts_create:
-  path: admin/posts/create
+  path: /admin/posts/create
   controller: App\Controller\PostController::create
 
 posts_edit:
-  path: admin/posts/edit/{id}
+  path: /admin/posts/edit/{id}
   controller: App\Controller\PostController::edit
 
 posts_delete:
-  path: admin/posts/delete/{id}
+  path: /admin/posts/delete/{id}
   controller: App\Controller\PostController::delete
 
 posts_show:
-  path: admin/posts/view/{id}
+  path: /posts/show/{id}
   controller: App\Controller\PostController::show
+#  requirements:
+#    page: '\d+'
 
 posts:
   path: admin/posts/page/{page}
   controller: App\Controller\PostController::index
 
-catégories:
-  path: /admin/category
+categories:
+  path: /admin/categories/
   controller: App\Controller\CategoryController::index
+
+categories_create:
+  path: /admin/categories/create
+  controller: App\Controller\CategoryController::create
+
+categories_edit:
+  path: /admin/categories/edit/{id}
+  controller: App\Controller\CategoryController::edit
+
+categories_delete:
+  path: /admin/categories/delete/{id}
+  controller: App\Controller\CategoryController::delete
