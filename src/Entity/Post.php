@@ -68,6 +68,8 @@ class Post
     {
         $this->categories = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
     }
 
     public function getId(): ?int

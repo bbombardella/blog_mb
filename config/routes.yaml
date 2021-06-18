@@ -30,16 +30,22 @@ comments_show:
   path: /admin/comments/{id}
   controller: App\Controller\CommentController::show
 
+posts_create:
+  path: admin/posts/create
+  controller: App\Controller\PostController::create
+
 posts_show:
   path: admin/posts/view/{id}
   controller: App\Controller\PostController::show
 
+posts_delete:
+  path: admin/posts/delete/{slug}
+  controller: App\Controller\PostController::delete
+
 posts:
-  path: admin/posts/{page}
+  path: admin/posts/page/{page}
   controller: App\Controller\PostController::index
 
 catégories:
-  path: /admin/catégory
+  path: /admin/category
   controller: App\Controller\CategoryController::index
-
-
