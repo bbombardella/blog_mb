@@ -11,7 +11,13 @@
 							<li>
 								{{category.name}}
 								-
-								{{ category.posts|length }}
+								<small>{{ category.posts|length }}
+									{% if category.posts|length == 1 %}
+										post
+									{% else %}
+										posts
+									{% endif %}
+								</small>
 							</li>
 						{% endif %}
 					{% else %}
