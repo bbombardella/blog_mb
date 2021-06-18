@@ -22,9 +22,9 @@ comments_valid:
   path: /admin/comments/{id}/valid
   controller: App\Controller\CommentController::valid
 
-comments_remove:
-  path: /admin/comments/{id}/remove
-  controller: App\Conroller\CommentController::remove
+comments_delete:
+  path: /admin/comments/{id}/delete
+  controller: App\Controller\CommentController::delete
 
 comments_show:
   path: /admin/comments/{id}

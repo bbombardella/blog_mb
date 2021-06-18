@@ -97,7 +97,7 @@ class CommentController extends AbstractController
         ]);
     }
 
-    public function remove(int $id): Response
+    public function delete(int $id): Response
     {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comment = $commentRepository->find($id);
@@ -111,5 +111,7 @@ class CommentController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($comment);
         $entityManager->flush();
+
+        return $this->redirectToRoute("comments");
     }
 }

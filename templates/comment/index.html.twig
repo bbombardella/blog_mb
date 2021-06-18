@@ -43,7 +43,7 @@
 							{% endif %}
 						</td>
 						<td>
-							<button type="button" class="btn btn-outline-danger">Supprimer</button>
+							<a href="{{ path('comments_delete',{'id': comment.id}) }}" type=" button" class=" btn btn-outline-danger">Supprimer</button>
 						</td>
 					</tr>
 				{% else %}
