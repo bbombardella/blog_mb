@@ -34,13 +34,17 @@ posts_create:
   path: admin/posts/create
   controller: App\Controller\PostController::create
 
+posts_edit:
+  path: admin/posts/edit/{id}
+  controller: App\Controller\PostController::create
+
+posts_delete:
+  path: admin/posts/delete/{id}
+  controller: App\Controller\PostController::delete
+
 posts_show:
   path: admin/posts/view/{id}
   controller: App\Controller\PostController::show
-
-posts_delete:
-  path: admin/posts/delete/{slug}
-  controller: App\Controller\PostController::delete
 
 posts:
   path: admin/posts/page/{page}
