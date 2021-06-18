@@ -15,13 +15,19 @@ class CommentController extends AbstractController
     /**
      * @Route("/comment", name="comment")
      */
-    public function index(): Response
+    public function index(int $page): Response
     {
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findBy(array(), array('createdAt' => 'DESC'));
-
+        $pagination = [
+            'page' => $page,
+            'pagesNb' => ceil($commentRepository->total() / 10),
+            'routeName' => 'comments',
+            'routeParams' => []
+        ];
         return $this->render('comment/index.html.twig', [
             'comments' => $comments,
+            'pagination' => $pagination
         ]);
     }
 
@@ -60,7 +66,7 @@ class CommentController extends AbstractController
         $entityManager->persist($comment);
         $entityManager->flush();
 
-        return $this->redirectToRoute("comments");
+        return $this->redirectToRoute("comments", ['page' => 1]);
     }
 
     public function create(Request $request, string $slug): Response
@@ -112,6 +118,6 @@ class CommentController extends AbstractController
         $entityManager->remove($comment);
         $entityManager->flush();
 
-        return $this->redirectToRoute("comments");
+        return $this->redirectToRoute("comments", ['page' => 1]);
     }
 }

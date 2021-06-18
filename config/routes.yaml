@@ -11,7 +11,7 @@ home_admin:
   controller: App\Controller\HomeController::admin
 
 comments:
-  path: /admin/comments
+  path: /admin/comments/page/{page}
   controller: App\Controller\CommentController::index
 
 comments_create:
@@ -42,15 +42,18 @@ posts_delete:
   path: /admin/posts/delete/{id}
   controller: App\Controller\PostController::delete
 
+posts_admin:
+  path: admin/posts/page/{page}
+  controller: App\Controller\PostController::admin
+
+posts:
+  path: /posts/page/{page}
+  controller: App\Controller\PostController::index
 posts_show:
   path: /posts/{slug}
   controller: App\Controller\PostController::show
 #  requirements:
 #    page: '\d+'
-
-posts:
-  path: admin/posts/page/{page}
-  controller: App\Controller\PostController::index
 
 categories:
   path: /admin/categories/

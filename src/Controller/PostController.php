@@ -12,15 +12,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
-    /**
-     * @Route("/admin/posts/page/{page}", name="post")
-     */
+
     public function index(int $page = 1): Response
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 10, ($page - 1) * 10);
+        $pagination = [
+            'page' => $page,
+            'pagesNb' => ceil($postRepository->total() / 10),
+            'routeName' => 'posts',
+            'routeParams' => []
+        ];
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/admin/posts/page/{page}", name="post")
+     */
+    public function admin(int $page = 1): Response
+    {
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
+        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 10, ($page - 1) * 10);
+        $pagination = [
+            'page' => $page,
+            'pagesNb' => ceil($postRepository->total() / 10),
+            'routeName' => 'posts_admin',
+            'routeParams' => []
+        ];
+        return $this->render('post/admin.html.twig', [
+            'posts' => $posts,
+            'pagination' => $pagination
         ]);
     }
 
