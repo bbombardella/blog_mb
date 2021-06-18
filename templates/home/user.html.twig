@@ -4,8 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<div class="d-flex">
-		{% include 'home/sidebar.html.twig' %}
-		{% include 'home/post.html.twig' %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-3 col-4 px-0">
+				{% include 'home/sidebar.html.twig' %}
+			</div>
+			<div class="col-lg-9 col-8">
+				{% include 'home/post.html.twig' %}</div>
+		</div>
 	</div>
 {% endblock %}

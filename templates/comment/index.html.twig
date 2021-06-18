@@ -4,53 +4,48 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-	<div class="example-wrapper mt-3">
-		<h1>Voici la liste des commentaires postés :</h1>
-		<table class="table mt-5">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Utilisateur</th>
-					<th scope="col">Contenu</th>
-					<th scope="col">Validation</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for comment in comments %}
-					<tr>
-						<th scope="row">{{comment.id}}</th>
-						<td>{{comment.username}}</td>
-						<td>"{{comment.content}}"</td>
-						<td>
-							{% if comment.valid %}
-								<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
-							{% else %}
-								<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-primary">Valider</a>
-							{% endif %}
-						</td>
-						<td>
-							<a href="{{ path('comments_delete',{'id': comment.id}) }}" type=" button" class=" btn btn-outline-danger">Supprimer</button>
-						</td>
-					</tr>
-				{% else %}
-					<p>Désolé, il n'y a aucun commentaire de disponible</p>
-				{% endfor %}
-			</tbody>
-		</table>
+	<div class="container my-2">
+		<div class="row">
+			<div class="col-12">
+				<h1>Voici la liste des commentaires postés :</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table mt-5">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Utilisateur</th>
+							<th scope="col">Contenu</th>
+							<th scope="col">Validation</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for comment in comments %}
+							<tr>
+								<th scope="row">{{comment.id}}</th>
+								<td>{{comment.username}}</td>
+								<td>"{{comment.content}}"</td>
+								<td>
+									{% if comment.valid %}
+										<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
+									{% else %}
+										<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-primary">Valider</a>
+									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('comments_delete',{'id': comment.id}) }}" type=" button" class=" btn btn-outline-danger">Supprimer</button>
+								</td>
+							</tr>
+						{% else %}
+							<p>Désolé, il n'y a aucun commentaire de disponible</p>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 	</div>
 {% endblock %}
