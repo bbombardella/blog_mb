@@ -22,9 +22,9 @@
 		<table class="table mt-5">
 			<thead>
 				<tr>
-					<th scope="col">#</th>
 					<th scope="col">Utilisateur</th>
 					<th scope="col">Contenu</th>
+					<th scope="col">Posté le</th>
 					<th scope="col">Validation</th>
 					<th scope="col"></th>
 				</tr>
@@ -32,9 +32,9 @@
 			<tbody>
 				{% for comment in comments %}
 					<tr>
-						<th scope="row">{{comment.id}}</th>
-						<td>{{comment.username}}</td>
+						<th scope="row">{{comment.username}}</th>
 						<td>"{{comment.content}}"</td>
+						<td>{{comment.createdAt|date("m/d/Y")}}</td>
 						<td>
 							{% if comment.valid %}
 								<a href="{{ path('comments_valid',{'id': comment.id}) }}" role="button" class="btn btn-outline-danger">Dévalider</a>
