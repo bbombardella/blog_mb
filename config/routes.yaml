@@ -36,7 +36,7 @@ posts_create:
 
 posts_edit:
   path: admin/posts/edit/{id}
-  controller: App\Controller\PostController::create
+  controller: App\Controller\PostController::edit
 
 posts_delete:
   path: admin/posts/delete/{id}

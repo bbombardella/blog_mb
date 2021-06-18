@@ -26,7 +26,7 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/admin/posts/delete/{slug}", name="post_delete")
+     * @Route("/admin/posts/show/{id}", name="post_show")
      */
     public function show(int $id): Response
     {
@@ -44,7 +44,6 @@ class PostController extends AbstractController
 
     public function create(Request $request)
     {
-
         $post = new Post();
 
         $form = $this->createForm(PostFormType::class, $post);
@@ -58,18 +57,58 @@ class PostController extends AbstractController
             $postManager = $this->getDoctrine()->getManager();
             $postManager->persist($post);
             $postManager->flush();
+
+            return $this->redirectToRoute("posts", [
+                'page' => 1
+            ]);
         }
 
-        return $this->render('post/create.html.twig', [
+        return $this->render('post/form.html.twig', [
             'form' => $form->createView(),
+            'title' => "Création d'un post"
         ]);
     }
 
-    public function edit()
+    public function edit(Request $request, int $id)
     {
+        $postManager = $this->getDoctrine()->getManager();
+        $postRepository = $postManager->getRepository(Post::class);
+        $post = $postRepository->find($id);
+
+        $form = $this->createForm(PostFormType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $slugger = new AsciiSlugger();
+
+            $post->setSlug($slugger->slug($post->getTitle()));
+            $post->setUpdatedAt(new \DateTime('now'));
+
+            $postManager->flush();
+
+            return $this->redirectToRoute("posts", [
+                'page' => 1
+            ]);
+        }
+
+        return $this->render('post/form.html.twig', [
+            'form' => $form->createView(),
+            'title' => "Modification d'un post"
+        ]);
     }
 
-    public function delete()
+    public function delete(int $id)
     {
+        $postManager = $this->getDoctrine()->getManager();
+        $postRepository = $postManager->getRepository(Post::class);
+
+        $post = $postRepository->find($id);
+
+        $postManager->remove($post);
+        $postManager->flush();
+
+        return $this->redirectToRoute("posts", [
+            'page' => 1
+        ]);
     }
 }
