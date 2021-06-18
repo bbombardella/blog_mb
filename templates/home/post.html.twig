@@ -22,7 +22,6 @@
 				<th scope="col">Titre</th>
 				<th scope="col">Description</th>
 				<th scope="col"></th>
-				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,9 +32,6 @@
 					<td>{{post.description}}</td>
 					<td>
 						<a href="{{ path('posts_show',{'slug': post.slug}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
-					</td>
-					<td>
-						<button type="button" class="btn btn-outline-success">Voir les commentaires</button>
 					</td>
 				</tr>
 			{% else %}
