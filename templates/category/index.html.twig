@@ -15,7 +15,6 @@
 				<table class="table mt-2">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
 							<th scope="col">Nom de la catégorie</th>
 							<th scope="col"></th>
 							<th scope="col"></th>
@@ -24,7 +23,6 @@
 					<tbody>
 						{% for category in categories %}
 							<tr>
-								<th scope="row">{{category.id}}</th>
 								<td>{{category.name}}</td>
 								<td>
 									<a href="{{ path("categories_edit", {'id': category.id}) }}" type="button" class="btn btn-outline-success">Editer</button>

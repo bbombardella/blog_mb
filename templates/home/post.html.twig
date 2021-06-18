@@ -13,7 +13,7 @@
 					<tr>
 						<th scope="col">Titre</th>
 						<th scope="col">Description</th>
-						<th scope="col"></th>
+						<th scope="col">Crée le</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -22,6 +22,7 @@
 						<tr>
 							<td>{{post.title}}</td>
 							<td>{{post.description}}</td>
+							<td>{{post.createdAt|date("m/d/Y")}}</td>
 							<td>
 								<a href="{{ path('posts_show',{'slug': post.slug}) }}" role="button" class="btn btn-outline-success">Voir le post</a>
 							</td>
