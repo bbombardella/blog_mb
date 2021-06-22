@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PostFormType extends AbstractType
 {
@@ -29,7 +30,7 @@ class PostFormType extends AbstractType
                 'expanded' => false,
                 'required' => true
             ])
-            ->add('content', TextType::class, ['label' => 'Contenu'])
+            ->add('content', TextareaType::class, ['label' => 'Contenu'])
             ->add('publishedAt', DateTimeType::class, [
                 'label' => 'Date de publication',
                 'date_widget' => 'single_text',
