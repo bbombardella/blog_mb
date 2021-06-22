@@ -40,7 +40,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute("categories");
         }
 
-        return $this->render('category/form.html.twig', [
+        return $this->render('form.admin.html.twig', [
             'form' => $form->createView(),
             'title' => "Création d'une catégorie"
         ]);
@@ -68,7 +68,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute("categories");
         }
 
-        return $this->render('category/form.html.twig', [
+        return $this->render('form.admin.html.twig', [
             'form' => $form->createView(),
             'title' => "Modification d'une catégorie"
         ]);

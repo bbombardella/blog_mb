@@ -89,7 +89,7 @@ class PostController extends AbstractController
             ]);
         }
 
-        return $this->render('post/form.html.twig', [
+        return $this->render('form.admin.html.twig', [
             'form' => $form->createView(),
             'title' => "Création d'un post"
         ]);
@@ -117,7 +117,7 @@ class PostController extends AbstractController
             ]);
         }
 
-        return $this->render('post/form.html.twig', [
+        return $this->render('form.admin.html.twig', [
             'form' => $form->createView(),
             'title' => "Modification d'un post"
         ]);

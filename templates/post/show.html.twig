@@ -4,66 +4,59 @@
 {% endblock %}
 
 {% block body %}
-	<!--Bref donc ça c'est l'affichage que j'avais commencé à faire pour les posts ^^ donc je le garde quelque part -->
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-	<div class="example-wrapper mt-3">
-		<div class="shadow p-3 mb-5 bg-body rounded mt-4">
-			<div>
-				<h3>{{post.title}}</h3>
-				<p class="text-black-50 ml-2 mr-2">
-					{{post.description}}
-				</p>
-				<p class="text-justify ml-3 mr-3">
-					{{post.content}}
-				</p>
-				<div class="d-flex justify-content-around">
-					<p class="text-black-50">
-						Créé le :
-						{{post.createdAt|date("m/d/Y G:i")}}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="shadow p-3 mb-5 bg-body rounded mt-4">
+					<div>
+						<h1>{{post.title}}</h1>
+						<p class="text-muted">
+							{{post.description}}
+						</p>
+					</div>
+					<p class="text-justify mx-3">
+						{{post.content}}
 					</p>
-					<p class="text-black-50">
-						Modifié le :
-						{{post.updatedAt|date("m/d/Y G:i")}}
-					</p>
-				</div>
-				<div>
-					<span class="badge badge-secondary">Catégories</span>
-					{% for category in post.categories %}
-						<span class="badge badge-info">{{ category.name }}</span>
-					{% endfor %}
-				</div>
-				<div class="mt-3 border-top">
-					<p class="mt-1">Commentaires</p>
-					<div class="border-bottom">
-						{% for comment in post.comments|filter(comment => comment.valid==1) %}
-							<p class="text-justify ml-4 mr-4">
-								<strong>
-									<u>{{ comment.username }}
-										:</u>
-								</strong>
-								{{ comment.content }}
-							</p>
-							<p class="text-black-50 ml-4 mr-4">
-								Commentaire posté le :
-								{{ comment.createdAt|date("m/d/Y G:i") }}
-							</p>
-						{% else %}
-							<small>Il n'y a aucun commentaire pour ce post</small>
+					<div class="d-flex justify-content-around">
+						<p class="text-black-50">
+							Créé le :
+							{{post.createdAt|date("m/d/Y G:i")}}
+						</p>
+						<p class="text-black-50">
+							Modifié le :
+							{{post.updatedAt|date("m/d/Y G:i")}}
+						</p>
+					</div>
+					<div>
+						<span class="badge badge-secondary">Catégories :</span>
+						{% for category in post.categories %}
+							<span class="badge badge-info">{{ category.name }}</span>
 						{% endfor %}
 					</div>
-					<div class="border-bottom py-2">
-						<a href="{{ path("comments_create", {'slug': post.slug}) }}" type="button" class="btn btn-info">Ajouter un commentaire</a>
+					<div class="mt-3 border-top">
+						<p class="h3 mt-2">Commentaires</p>
+						<div class="border-bottom py-2">
+							{% for comment in post.comments|filter(comment => comment.valid==1) %}
+								<div>
+									<p class="text-justify mx-4 mb-0">
+										<strong>
+											<u>{{ comment.username }}
+												:</u>
+										</strong>
+										{{ comment.content }}
+									</p>
+									<p class="text-black-50 mx-4">
+										Commentaire posté le :
+										{{ comment.createdAt|date("m/d/Y G:i") }}
+									</p>
+								</div>
+							{% else %}
+								<small>Il n'y a aucun commentaire pour ce post</small>
+							{% endfor %}
+						</div>
+						<div class="border-bottom py-2">
+							<a href="{{ path("comments_create", {'slug': post.slug}) }}" type="button" class="btn btn-info">Ajouter un commentaire</a>
+						</div>
 					</div>
 				</div>
 			</div>
