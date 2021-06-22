@@ -16,10 +16,10 @@ class PostController extends AbstractController
     public function index(int $page = 1): Response
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 10, ($page - 1) * 10);
+        $posts = $postRepository->latestValid(10, ($page - 1) * 10);
         $pagination = [
             'page' => $page,
-            'pagesNb' => ceil($postRepository->total() / 10),
+            'pagesNb' => ceil($postRepository->totalValid() / 10),
             'routeName' => 'posts',
             'routeParams' => []
         ];

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Post;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -29,6 +30,32 @@ class PostRepository extends ServiceEntityRepository
             ->select('count(p.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * @return int Returns the number of rows of valid posts in database
+     */
+    public function totalValid(): int
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.publishedAt <= :date')
+            ->setParameter('date', new \DateTime('now'))
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $qb;
+    }
+
+    public function latestValid(int $limit = 0, int $offset = 0)
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->lte('publishedAt', new \DateTime('now')))
+            ->orderBy(['createdAt' => Criteria::DESC])
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        return $this->matching($criteria);
     }
 
     // /**

@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     public function user(): Response
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
-        $posts = $postRepository->findBy(array(), array('createdAt' => 'DESC'), 5);
+        $posts = $postRepository->latestValid(5, 0);
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findBy(array("valid" => 1), array('createdAt' => 'DESC'), 5);
