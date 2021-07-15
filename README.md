@@ -1,6 +1,6 @@
 # Blog - 블로그
 
-Projet de blog suite au cours de PHP Avancé à l'IUT Lyon 1. Le blog a été codé avec le framework Symfony en language PHP
+Projet de blog suite au cours de PHP Avancé à l'IUT Lyon 1. Le blog a été codé avec le framework Symfony en langage PHP
 
 ## Composition du groupe
 
